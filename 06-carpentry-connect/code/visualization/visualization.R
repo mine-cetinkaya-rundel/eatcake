@@ -20,6 +20,8 @@ un_votes %>%
   filter(country %in% c("UK & NI", "US", "Turkey")) %>%
   inner_join(un_roll_calls, by = "rcid") %>%
   inner_join(un_roll_call_issues, by = "rcid") %>%
+  mutate(issue = ifelse(issue == "Nuclear weapons and nuclear material",
+                        "Nuclear weapons and materials", issue)) %>%
   group_by(country, year = year(date), issue) %>%
   summarize(
     votes = n(),
@@ -56,6 +58,8 @@ un_votes %>%
   filter(country %in% c("UK & NI", "US", "France")) %>%
   inner_join(un_roll_calls, by = "rcid") %>%
   inner_join(un_roll_call_issues, by = "rcid") %>%
+  mutate(issue = ifelse(issue == "Nuclear weapons and nuclear material",
+                        "Nuclear weapons and materials", issue)) %>%
   group_by(country, year = year(date), issue) %>%
   summarize(
     votes = n(),
